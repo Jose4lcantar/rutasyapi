@@ -1,0 +1,34 @@
+<div class="weather-container">
+    <h1>Clima y Pronóstico</h1>
+    <div class="search-container">
+      <input [(ngModel)]="city" placeholder="Ingresa una ciudad" (keyup.enter)="searchWeather()" />
+      <button (click)="searchWeather()">Buscar</button>
+    </div>
+ 
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <div *ngIf="currentWeather" class="current-weather">
+      <h2>{{ currentWeather.name }}</h2>
+      <div class="weather-info">
+        <img [src]="'https://openweathermap.org/img/wn/' + currentWeather.weather[0].icon + '@2x.png'" alt="Weather Icon" />
+        <p>{{ currentWeather.weather[0].description }}</p>
+        <p>Temperatura: {{ currentWeather.main.temp }}°C</p>
+        <p>Humedad: {{ currentWeather.main.humidity }}%</p>
+        <p>Viento: {{ currentWeather.wind.speed }} m/s</p>
+      </div>
+    </div>
+  
+    <!-- Pronósticoooo jejej -->
+    <div *ngIf="forecast.length > 0" class="forecast">
+      <h2>Pronóstico para los próximos días</h2>
+      <div class="forecast-list">
+        <div *ngFor="let day of forecast" class="forecast-item">
+          <p>{{ day.dt_txt | date: 'EEE, MMM d' }}</p>
+          <img [src]="'https://openweathermap.org/img/wn/' + day.weather[0].icon + '@2x.png'" alt="Weather Icon" />
+          <p>{{ day.main.temp }}°C</p>
+        </div>
+      </div>
+    </div>
+  </div>
